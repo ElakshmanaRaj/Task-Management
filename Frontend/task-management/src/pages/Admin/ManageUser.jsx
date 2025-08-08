@@ -4,14 +4,17 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPath';
 import { LuFileSpreadsheet } from 'react-icons/lu';
 import UserCard from '../../components/cards/UserCard';
+import PulseLoader from "react-spinners/PulseLoader";
 
 const ManageUser = () => {
 
 
   const[allUsers, setAllUsers] = useState([]);
+  const[loading, setLoading] = useState(true);
+
 
   const getAllUsers = async () => {
-
+    setLoading(true);
     try {
 
       const response = await axiosInstance.get(API_PATHS.USERS.GET_ALL_USERS);
@@ -22,12 +25,22 @@ const ManageUser = () => {
       
     } catch (error) {
       console.error("Error to fetch users:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(()=>{
     getAllUsers();
   },[]);
+
+  if (loading) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center overflow-hidden bg-white">
+      <PulseLoader color="#0d9488" />
+    </div>
+    );    
+  }
 
   // download task report
 

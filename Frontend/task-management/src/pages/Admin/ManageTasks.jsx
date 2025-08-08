@@ -6,14 +6,18 @@ import { API_PATHS } from "../../utils/apiPath";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import TaskStatusTabs from "../../components/layouts/TaskStatusTabs";
 import TaskCard from "../../components/cards/TaskCard";
+import PulseLoader from "react-spinners/PulseLoader";
+
 
 const ManageTasks = () => {
   const [alltasks, setAllTasks] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [filterStatus, setFilterStatus] = useState("All");
+  const[loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const getAllTasks = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(API_PATHS.TASKS.GET_ALL_TASKS, {
         params: {
@@ -24,19 +28,31 @@ const ManageTasks = () => {
       setAllTasks(response.data?.tasks?.length > 0 ? response.data.tasks : []);
 
       const statusSummary = response.data?.statusSummary || {};
-
       const statusArray = [
         { label: "All", count: statusSummary.all || 0 },
         { label: "Pending", count: statusSummary.pendingTasks || 0 },
         { label: "In Progress", count: statusSummary.inProgressTasks || 0 },
         { label: "Completed", count: statusSummary.completedTasks || 0 },
       ];
-
       setTabs(statusArray);
     } catch (error) {
       console.error("Error get all tasks:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getAllTasks(filterStatus); 
+  }, [filterStatus]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen justify-center items-center">
+        <PulseLoader size={15} color="#0d9488" />
+      </div>
+    );
+  }
 
   const handleClick = (taskData) => {
     navigate("/admin/create-tasks", { state: { taskId: taskData._id } });
@@ -64,9 +80,7 @@ const ManageTasks = () => {
     }
   };
 
-  useEffect(() => {
-    getAllTasks(filterStatus);
-  }, [filterStatus]);
+
 
 
 

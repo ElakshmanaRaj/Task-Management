@@ -12,6 +12,9 @@ import { LuArrowRight } from 'react-icons/lu';
 import TaskListTable from '../../components/layouts/TaskListTable';
 import CustomPieChart from '../../components/charts/CustomPieChart';
 import CustomBarChart from '../../components/charts/CustomBarChart';
+import PulseLoader from "react-spinners/PulseLoader";
+
+
 
 const COLORS = ["#8D51FF","#00B8D8", "#7BCE00"];
 
@@ -23,6 +26,7 @@ const Dashboard = () => {
   const[dashboardData, setDashboardData]= useState(null);
   const[pieChartData, setPieChartData]= useState([]);
   const[barChartData, setBarChartData]= useState([]);
+  const[loading, setLoading] = useState(true);
 
 
   // Chart Data
@@ -49,29 +53,40 @@ const Dashboard = () => {
   }
 
   const getDashboardData = async () => {
+    setLoading(true);
 
     try {
       const response = await axiosInstance.get(API_PATHS.TASKS.GET_DASHBOARD_DATA);
 
-      if(response.data){
+      if (response.data) {
         setDashboardData(response.data);
         prepareChartData(response.data?.charts || null);
       }
-
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    getDashboardData();
+    return () => {};
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center overflow-hidden bg-white">
+      <PulseLoader color="#0d9488" />
+    </div>
+    );    
   }
 
   const onSeeMore = ()=>{
     navigate("/admin/tasks")
   }
-  useEffect(()=>{
 
-    getDashboardData();
-    return () =>{};
-
-  },[])
+  
 
 
   return (
