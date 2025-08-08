@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+
+@import "tailwindcss";
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    background-color: #fcfbfc;
+    list-style: none;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+}
+
+.input-box{
+  @apply w-full flex justify-between gap-3 text-black text-xs bg-slate-100/50 rounded px-4 py-3 mt-3 mb-4 border border-slate-200 outline-none;
+}
+
+.card{
+  @apply bg-white p-4 rounded-2xl shadow-md shadow-gray-100 border border-gray-200/50; 
+}
+
+.card-btn{
+  @apply flex items-center cursor-pointer gap-3 text-[12px] font-semibold text-gray-700 hover:text-blue-600 bg-gray-50 hover:bg-blue-50 px-4 py-1.5 rounded-lg border border-gray-200/50;
+}
+
+.card-btn-fill{
+  @apply flex items-center gap-3 cursor-pointer text-[12px] font-semibold text-white hover:text-blue-600 bg-blue-600 hover:bg-blue-50 px-4 py-1.5 rounded-md border border-blue-600;
+}
+
+.add-btn{
+  @apply w-full cursor-pointer flex items-center justify-center gap-1.5 text-xs md:text-sm font-medium text-blue-600 whitespace-nowrap bg-blue-50 px-4 py-2 rounded-lg border border-blue-100 ;
+}
+
+.download-btn{
+  @apply cursor-pointer hidden lg:flex items-center gap-3 text-xs md:text-[13px] text-lime-900 bg-lime-100 px-2 md:px-3 py-2 rounded border border-lime-200 hover:border-lime-400;
+}
+
+.download-btn-2{
+  @apply cursor-pointer flex lg:hidden items-center gap-3 text-xs md:text-[13px] text-lime-900 bg-lime-100 px-2 md:px-3 py-2 rounded border border-lime-200 hover:border-lime-400;
+}
+
+.form-card{
+  @apply bg-white p-6 rounded-lg shadow-md shadow-gray-100 border border-gray-200/50;
+}
+
+.form-input{
+  @apply bg-white outline-none text-sm w-full border border-slate-400 px-2.5 py-3 rounded-md mt-2 placeholder:text-gray-500;
+}
+
+.user-card{
+  @apply bg-white p-4 rounded-xl shadow-md shadow-gray-100 border border-gray-200/50;
+}
+
