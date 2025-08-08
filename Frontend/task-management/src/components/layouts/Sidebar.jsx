@@ -36,7 +36,7 @@ const Sidebar = ({ activeMenu }) => {
   }, [user]);
 
   return (
-    <div className="w-64 border-r border-gray-200/50 h-[calc(100vh-61px)] sticky top-[50px] lg:top-[15px] z-50">
+    <div className="w-64 border-r border-gray-200/50 h-[calc(100vh-61px)] sticky top-[10px] lg:top-[15px] z-50">
       <div className="flex flex-col items-center justify-center mb-7 pt-5">
         <div className="relative">
           <img
